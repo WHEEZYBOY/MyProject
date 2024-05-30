@@ -1,11 +1,11 @@
-﻿#include <iostream>
+#include <iostream>
 #include <cstdlib>
 #include <ctime>
 
 
 
 
-const int MAX_SIZE = 4;
+const int SIZE = 4;
 
 int mesov = 0;
 
@@ -13,7 +13,7 @@ using namespace std;
 
 
 
-void initializeBoard(int board[MAX_SIZE][MAX_SIZE], int size) {
+void initializeBoard(int board[SIZE][SIZE], int size) {
 	int num = 1;
 	for (int i = 0; i < size; i++) {
 		for (int j = 0; j < size; j++) {
@@ -23,27 +23,28 @@ void initializeBoard(int board[MAX_SIZE][MAX_SIZE], int size) {
 	board[size - 1][size - 1] = 0; // пустое пространство 0
 }
 
-void shuffleBoard(int board[MAX_SIZE][MAX_SIZE], int size) {
+void shuffleBoard(int board[SIZE][SIZE], int size) {
 	srand(time(0));
 	for (int i = 0; i < size; ++i) {
 		for (int j = 0; j < size; ++j) {
-			int randRow = rand() % size;
-			int randCol = rand() % size;
+			int randRow = rand() % size; //рандомит ряд
+			int randCol = rand() % size; // рандомит столбик
 			swap(board[i][j], board[randRow][randCol]);
 		}
 	}
 }
 
-void PrintBoard(int board[][MAX_SIZE], int size) {
+void PrintBoard(int board[][SIZE], int size) {
 	for (int i = 0; i < size; i++) {
 		for (int j = 0; j < size; j++) {
 			cout << board[i][j] << "\t";
 		}
 		cout << endl;
 	}
+	
 }
 
-bool isSolved(int board[MAX_SIZE][MAX_SIZE], int size) {
+bool isSolved(int board[SIZE][SIZE], int size) {
 	int num = 1;
 	for (int i = 0; i < size; ++i) {
 		for (int j = 0; j < size; ++j) {
@@ -58,6 +59,8 @@ bool isSolved(int board[MAX_SIZE][MAX_SIZE], int size) {
 
 int main() {
 
+	
+
 	setlocale(LC_ALL, "russian");
 	
 	int size;
@@ -69,7 +72,7 @@ int main() {
 		return 1;
 	}
 
-	int board[MAX_SIZE][MAX_SIZE];
+	int board[SIZE][SIZE];
 	initializeBoard(board, size);
 	shuffleBoard(board, size);
 
@@ -126,14 +129,15 @@ int main() {
 			cout << "Ошибка выбирите другое число." << endl;
 		}
 
+		
 		PrintBoard(board, size);
+		
 	}
 
 	clock_t endTime = clock();
 	double timeSpent = (double)(endTime - startTime) / CLOCKS_PER_SEC;
 	cout << "Время, потраченное на сбор пятнашек: " << timeSpent << " секунд" << endl;
 	cout << "Количество перестановок:" << mesov << endl;
-
 
 	cout << "Поздравляю! Ты прошел игру. Пока!" << endl;
 
